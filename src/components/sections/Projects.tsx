@@ -131,9 +131,9 @@ const Projects = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ delay: index * 0.1 }}
-                className="group"
+                className="group flex"
               >
-                <div className="glass rounded-2xl p-6 h-full hover:shadow-float transition-all duration-500 border border-primary/10 hover:border-primary/30">
+                <div className="glass rounded-2xl p-6 flex flex-col hover:shadow-float transition-all duration-500 border border-primary/10 hover:border-primary/30 w-full">
                   {/* Project Icon & Status */}
                   <div className="flex items-start justify-between mb-4">
                     <div className={`p-3 rounded-xl bg-gradient-to-r ${project.gradient} shadow-lg`}>

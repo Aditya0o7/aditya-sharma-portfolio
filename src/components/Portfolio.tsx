@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { toast } from "@/hooks/use-toast";
 import Hero from "./sections/Hero";
 import Projects from "./sections/Projects";
 import Skills from "./sections/Skills";
@@ -11,6 +12,7 @@ import ParticleBackground from "./ui/ParticleBackground";
 
 const Portfolio = () => {
   const [theme, setTheme] = useState<"light" | "dark">("dark");
+  const [easterEggSequence, setEasterEggSequence] = useState("");
 
   useEffect(() => {
     // Check for saved theme preference or default to dark
@@ -28,6 +30,33 @@ const Portfolio = () => {
     document.documentElement.className = newTheme;
     localStorage.setItem("theme", newTheme);
   };
+
+  // Easter egg: typing "007" triggers special effect
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      const newSequence = easterEggSequence + e.key;
+      setEasterEggSequence(newSequence.slice(-3)); // Keep only last 3 characters
+      
+      if (newSequence.slice(-3) === "007") {
+        // Trigger special effect
+        document.body.style.animation = "pulse-rainbow 2s ease-in-out";
+        toast({
+          title: "🕵️ Agent 007 Detected!",
+          description: "Welcome, secret agent. Your mission: explore this portfolio.",
+        });
+        
+        // Remove animation after completion
+        setTimeout(() => {
+          document.body.style.animation = "";
+        }, 2000);
+        
+        setEasterEggSequence("");
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyPress);
+    return () => window.removeEventListener("keydown", handleKeyPress);
+  }, [easterEggSequence]);
 
   // Konami Code Easter Egg
   useEffect(() => {
@@ -49,14 +78,10 @@ const Portfolio = () => {
           }, 3000);
           konamiIndex = 0;
           
-          // Show notification
-          const notification = document.createElement("div");
-          notification.className = "fixed top-4 right-4 bg-gradient-primary text-white px-6 py-3 rounded-lg z-50 animate-scale-in";
-          notification.textContent = "🎉 Easter egg found! Aditya would be impressed!";
-          document.body.appendChild(notification);
-          setTimeout(() => {
-            notification.remove();
-          }, 3000);
+          toast({
+            title: "🎮 Konami Code Activated!",
+            description: "The classic cheat code still works! Respect the legends.",
+          });
         }
       } else {
         konamiIndex = 0;

@@ -107,36 +107,43 @@ const Skills = () => {
           ))}
         </div>
 
-        {/* Floating skill bubbles animation */}
+        {/* Professional skill showcase */}
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 1 }}
-          className="mt-16 relative h-40 overflow-hidden"
+          transition={{ delay: 1, duration: 0.6 }}
+          className="mt-16"
         >
-          {["React", "Node.js", "Python", "MongoDB", "Git"].map((skill, index) => (
-            <motion.div
-              key={skill}
-              className="absolute bg-gradient-primary text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg"
-              animate={{
-                x: [0, 100, 0],
-                y: [0, -50, 0],
-                rotate: [0, 180, 360],
-              }}
-              transition={{
-                duration: 10 + index * 2,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-              style={{
-                left: `${index * 20}%`,
-                top: `${Math.random() * 100}%`,
-              }}
-            >
-              {skill}
-            </motion.div>
-          ))}
+          <div className="text-center mb-8">
+            <h3 className="text-2xl font-bold mb-4">
+              Core <span className="gradient-text">Technologies</span>
+            </h3>
+            <p className="text-muted-foreground">
+              Technologies I work with daily to build exceptional software
+            </p>
+          </div>
+          
+          <div className="flex flex-wrap justify-center gap-4">
+            {["React", "Node.js", "Python", "MongoDB", "Git", "TypeScript", "Express.js", "Firebase"].map((skill, index) => (
+              <motion.div
+                key={skill}
+                initial={{ opacity: 0, scale: 0 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1, duration: 0.3 }}
+                whileHover={{ 
+                  scale: 1.05,
+                  transition: { duration: 0.2 }
+                }}
+                className="glass px-6 py-3 rounded-full border border-primary/20 hover:border-primary/40 hover:shadow-glow transition-all duration-300 cursor-pointer group"
+              >
+                <span className="text-sm font-medium group-hover:text-primary transition-colors">
+                  {skill}
+                </span>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
       </div>
     </section>

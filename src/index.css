@@ -170,4 +170,20 @@
     z-index: 9999;
     transition: transform 0.1s ease;
   }
+
+  /* Easter egg animation */
+  @keyframes pulse-rainbow {
+    0%, 100% {
+      filter: hue-rotate(0deg) brightness(1);
+    }
+    25% {
+      filter: hue-rotate(90deg) brightness(1.2);
+    }
+    50% {
+      filter: hue-rotate(180deg) brightness(1.4);
+    }
+    75% {
+      filter: hue-rotate(270deg) brightness(1.2);
+    }
+  }
 }
