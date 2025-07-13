@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ExternalLink, Github, Brain, ArrowRight, Zap, Users, Database } from "lucide-react";
+import { ExternalLink, Github, Brain, ArrowRight, Database } from "lucide-react";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
+import ProjectModal from "../ui/ProjectModal";
 import chatbotImage from "../../assets/project-chatbot.jpg";
 import stackshifterImage from "../../assets/project-stackshifter.jpg";
 import registrationImage from "../../assets/project-registration.jpg";
@@ -66,14 +67,25 @@ const projects = [
 ];
 
 const Projects = () => {
-  const [expandedProject, setExpandedProject] = useState<number | null>(null);
   const [filter, setFilter] = useState("All");
+  const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const categories = ["All", "AI/ML", "Developer Tools", "Web Development"];
   
   const filteredProjects = filter === "All" 
     ? projects 
     : projects.filter(project => project.category === filter);
+
+  const openModal = (project: typeof projects[0]) => {
+    setSelectedProject(project);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setTimeout(() => setSelectedProject(null), 300);
+  };
 
   return (
     <section id="projects" className="py-20 px-6">
@@ -150,11 +162,11 @@ const Projects = () => {
                   <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
                     {project.title}
                   </h3>
-                  <p className="text-muted-foreground mb-4 leading-relaxed">
+                  <p className="text-muted-foreground mb-4 leading-relaxed flex-grow">
                     {project.description}
                   </p>
 
-                  {/* Tech Stack */}
+                  {/* Tech Stack Preview */}
                   <div className="flex flex-wrap gap-2 mb-6">
                     {project.stack.slice(0, 3).map((tech) => (
                       <Badge key={tech} variant="secondary" className="text-xs">
@@ -168,110 +180,55 @@ const Projects = () => {
                     )}
                   </div>
 
-                  {/* Expand Button */}
-                  <Button
-                    variant="ghost"
-                    onClick={() => 
-                      setExpandedProject(
-                        expandedProject === project.id ? null : project.id
-                      )
-                    }
-                    className="w-full mb-4 hover:bg-primary/10 transition-colors"
-                  >
-                    {expandedProject === project.id ? "Show Less" : "View Details"}
-                    <motion.span
-                      animate={{ rotate: expandedProject === project.id ? 180 : 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="ml-2"
-                    >
-                      ↓
-                    </motion.span>
-                  </Button>
-
-                  {/* Expanded Content */}
-                  <AnimatePresence>
-                    {expandedProject === project.id && (
-                      <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: "auto" }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="border-t border-border pt-4 mb-4"
-                      >
-                        {/* Project Preview Image */}
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ delay: 0.2 }}
-                          className="mb-6 rounded-lg overflow-hidden border border-border"
-                        >
-                          <img 
-                            src={project.image} 
-                            alt={`${project.title} preview`}
-                            className="w-full h-40 object-cover hover:scale-105 transition-transform duration-500"
-                          />
-                        </motion.div>
-
-                        <h4 className="font-semibold mb-3 text-sm text-primary">
-                          ✨ Key Highlights
-                        </h4>
-                        <ul className="space-y-2">
-                          {project.highlights.map((highlight, idx) => (
-                            <motion.li
-                              key={idx}
-                              initial={{ opacity: 0, x: -20 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: idx * 0.1 }}
-                              className="text-sm text-muted-foreground flex items-start gap-2"
-                            >
-                              <Zap className="w-3 h-3 text-accent mt-0.5 flex-shrink-0" />
-                              {highlight}
-                            </motion.li>
-                          ))}
-                        </ul>
-
-                        {/* All Tech Stack */}
-                        <div className="mt-4">
-                          <h4 className="font-semibold mb-2 text-sm text-primary">
-                            🛠 Tech Stack
-                          </h4>
-                          <div className="flex flex-wrap gap-1">
-                            {project.stack.map((tech) => (
-                              <Badge key={tech} variant="outline" className="text-xs">
-                                {tech}
-                              </Badge>
-                            ))}
-                          </div>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-
                   {/* Action Buttons */}
-                  <div className="flex gap-3">
+                  <div className="flex flex-col gap-3 mt-auto">
+                    {/* View Details Button */}
                     <Button
-                      variant="outline"
-                      size="sm"
-                      className="flex-1 group/btn hover:bg-primary/10"
-                      onClick={() => window.open(project.github, "_blank")}
+                      variant="ghost"
+                      onClick={() => openModal(project)}
+                      className="w-full hover:bg-primary/10 transition-colors group"
                     >
-                      <Github className="w-4 h-4 mr-2 group-hover/btn:rotate-12 transition-transform" />
-                      Code
+                      View Details
+                      <motion.span
+                        className="ml-2 group-hover:translate-x-1 transition-transform"
+                      >
+                        →
+                      </motion.span>
                     </Button>
-                    <Button
-                      size="sm"
-                      className="flex-1 bg-gradient-primary hover:shadow-glow group/btn"
-                      onClick={() => window.open(project.live, "_blank")}
-                    >
-                      <ExternalLink className="w-4 h-4 mr-2 group-hover/btn:translate-x-1 transition-transform" />
-                      Live
-                    </Button>
+
+                    {/* GitHub & Live Buttons */}
+                    <div className="flex gap-3">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="flex-1 group/btn hover:bg-primary/10"
+                        onClick={() => window.open(project.github, "_blank")}
+                      >
+                        <Github className="w-4 h-4 mr-2 group-hover/btn:rotate-12 transition-transform" />
+                        Code
+                      </Button>
+                      <Button
+                        size="sm"
+                        className="flex-1 bg-gradient-primary hover:shadow-glow group/btn"
+                        onClick={() => window.open(project.live, "_blank")}
+                      >
+                        <ExternalLink className="w-4 h-4 mr-2 group-hover/btn:translate-x-1 transition-transform" />
+                        Live
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </motion.div>
             ))}
           </AnimatePresence>
         </div>
+
+        {/* Project Modal */}
+        <ProjectModal 
+          project={selectedProject}
+          isOpen={isModalOpen}
+          onClose={closeModal}
+        />
       </div>
     </section>
   );
