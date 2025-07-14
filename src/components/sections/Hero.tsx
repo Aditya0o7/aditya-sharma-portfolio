@@ -25,7 +25,7 @@ const Hero = () => {
   const handleDownloadResume = () => {
     // In a real implementation, this would download the actual resume
     const link = document.createElement("a");
-    link.href = "/resume.pdf"; // Replace with actual resume path
+    link.href = "/adityasharmao371_res.pdf"; // Replace with actual resume path
     link.download = "Aditya_Sharma_Resume.pdf";
     link.click();
   };
@@ -33,13 +33,13 @@ const Hero = () => {
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
       {/* Hero Background */}
-      <div 
+      <div
         className="absolute inset-0 opacity-20"
         style={{
           backgroundImage: `url(${heroBackground})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
         }}
       />
       {/* Floating geometric elements */}
@@ -93,7 +93,7 @@ const Hero = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-6xl md:text-8xl font-bold mb-6"
+            className="text-6xl md:text-8xl font-bold mb-6 select-none cursor-default"
             onDoubleClick={() => {
               // Easter egg - double click name for special effect
               const element = document.querySelector("h1");
@@ -101,7 +101,7 @@ const Hero = () => {
                 element.classList.add("animate-pulse-glow");
                 setTimeout(() => {
                   element.classList.remove("animate-pulse-glow");
-                }, 2000);
+                }, 1500);
               }
             }}
           >
@@ -144,9 +144,9 @@ const Hero = () => {
             transition={{ delay: 2 }}
             className="text-lg text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed"
           >
-            B.Tech CSE undergrad passionate about building intelligent and scalable 
-            software solutions. Adept in web dev, system design, and solving real-world 
-            problems through code.
+            B.Tech CSE undergrad passionate about building intelligent and
+            scalable software solutions. Adept in web dev, system design, and
+            solving real-world problems through code.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -164,13 +164,15 @@ const Hero = () => {
               <Download className="w-5 h-5 mr-2 group-hover:animate-bounce" />
               Download Resume
             </Button>
-            
+
             <Button
               variant="outline"
               className="glass border-primary/30 hover:bg-primary/10 transition-all duration-300 group"
               size="lg"
               onClick={() => {
-                document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
+                document
+                  .getElementById("projects")
+                  ?.scrollIntoView({ behavior: "smooth" });
               }}
             >
               <Code2 className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
@@ -183,7 +185,7 @@ const Hero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 3, duration: 1 }}
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+            className="absolute bottom-5 left-1/2 transform -translate-x-1/2"
           >
             <motion.div
               animate={{ y: [0, 10, 0] }}

@@ -10,13 +10,14 @@ interface Project {
   description: string;
   stack: string[];
   highlights: string[];
-  icon: any;
   gradient: string;
   github: string;
   live: string;
+  icon: React.ElementType;
   image: string;
   category: string;
   status?: string;
+  screenshots?: string[];
 }
 
 interface ProjectModalProps {
@@ -31,12 +32,12 @@ const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
-    
+
     if (isOpen) {
       document.addEventListener("keydown", handleEscape);
       document.body.style.overflow = "hidden";
     }
-    
+
     return () => {
       document.removeEventListener("keydown", handleEscape);
       document.body.style.overflow = "unset";
@@ -46,10 +47,7 @@ const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
   if (!project) return null;
 
   // Placeholder screenshots from unsplash
-  const screenshots = [
-    "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&h=600&fit=crop",
-    "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=600&fit=crop"
-  ];
+  const screenshots = project.screenshots ?? [];
 
   return (
     <AnimatePresence>
@@ -64,7 +62,7 @@ const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
             className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50"
             onClick={onClose}
           />
-          
+
           {/* Modal */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8, y: 20 }}
@@ -78,7 +76,9 @@ const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
               {/* Header */}
               <div className="flex items-center justify-between p-6 border-b border-border">
                 <div className="flex items-center gap-4">
-                  <div className={`p-3 rounded-xl bg-gradient-to-r ${project.gradient} shadow-lg`}>
+                  <div
+                    className={`p-3 rounded-xl bg-gradient-to-r ${project.gradient} shadow-lg`}
+                  >
                     <project.icon className="w-6 h-6 text-white" />
                   </div>
                   <div>
@@ -86,12 +86,15 @@ const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
                     <p className="text-muted-foreground">{project.category}</p>
                   </div>
                   {project.status && (
-                    <Badge variant="outline" className="border-accent text-accent">
+                    <Badge
+                      variant="outline"
+                      className="border-accent text-accent"
+                    >
                       {project.status}
                     </Badge>
                   )}
                 </div>
-                
+
                 <Button
                   variant="ghost"
                   size="sm"
@@ -123,10 +126,10 @@ const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
                         transition={{ delay: index * 0.1 }}
                         className="rounded-lg overflow-hidden border border-border hover:shadow-lg transition-all duration-300"
                       >
-                        <img 
+                        <img
                           src={screenshot}
                           alt={`${project.title} screenshot ${index + 1}`}
-                          className="w-full h-48 object-cover hover:scale-105 transition-transform duration-500"
+                          className="w-full object-contain max-h-[500px] rounded-lg hover:scale-105 transition-transform duration-500"
                         />
                       </motion.div>
                     ))}
@@ -148,7 +151,9 @@ const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
                         className="flex items-start gap-3 p-3 rounded-lg glass border border-primary/10"
                       >
                         <Zap className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                        <span className="text-muted-foreground">{highlight}</span>
+                        <span className="text-muted-foreground">
+                          {highlight}
+                        </span>
                       </motion.div>
                     ))}
                   </div>
@@ -161,9 +166,9 @@ const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
                   </h3>
                   <div className="flex flex-wrap gap-2">
                     {project.stack.map((tech) => (
-                      <Badge 
-                        key={tech} 
-                        variant="secondary" 
+                      <Badge
+                        key={tech}
+                        variant="secondary"
                         className="hover:bg-primary/10 hover:scale-105 transition-all duration-200 cursor-pointer"
                       >
                         {tech}
