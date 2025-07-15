@@ -125,7 +125,7 @@ const Skills = () => {
           </div>
           
           <div className="flex flex-wrap justify-center gap-4">
-            {["React", "Node.js", "Python", "MongoDB", "Git", "TypeScript", "Express.js", "Firebase"].map((skill, index) => (
+            {["C++", "React", "Node.js", "Python", "MongoDB", "Git", "JavaScript","Express.js", "Firebase"].map((skill, index) => (
               <motion.div
                 key={skill}
                 initial={{ opacity: 0, scale: 0 }}

@@ -16,7 +16,7 @@ import stackshifterImage from "../../assets/stackshifter.jpg";
 import registrationImage from "../../assets/course.png";
 import registrationImage1 from "../../assets/course2.png";
 import grammifyImage from "../../assets/grammify.png";
-import grammifyImage1 from "../../assets/Screenshot 2025-07-14 112956.png"
+import grammifyImage1 from "../../assets/Screenshot 2025-07-14 112956.png";
 const projects = [
   {
     id: 1,
@@ -32,7 +32,7 @@ const projects = [
     icon: Brain,
     gradient: "from-purple-500 to-pink-500",
     github: "https://github.com/Aditya0o7/MentalHealtAsistant-chatbot",
-    live: "#",
+    live: "../../pages/NotFound.tsx",
     image: chatbotImage,
     category: "AI/ML",
     screenshots: [chatbotImage, chatbotImage1],
@@ -51,7 +51,7 @@ const projects = [
     icon: ArrowRight,
     gradient: "from-blue-500 to-cyan-500",
     github: "https://github.com/Aditya0o7/stackshifter",
-    live: "#",
+    live: "../../pages/NotFound.tsx",
     image: stackshifterImage,
     category: "Developer Tools",
     status: "CLI coming soon via NPM",
@@ -94,7 +94,7 @@ const projects = [
     live: "https://grammify-score-your-grammar-1.onrender.com/",
     image: grammifyImage,
     category: "AI/ML",
-    screenshots: [grammifyImage, grammifyImage1]
+    screenshots: [grammifyImage, grammifyImage1],
   },
 ];
 
