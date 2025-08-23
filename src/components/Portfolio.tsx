@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import { toast } from "@/hooks/use-toast";
 import Hero from "./sections/Hero";
@@ -9,10 +9,16 @@ import Contact from "./sections/Contact";
 import ThemeToggle from "./ui/ThemeToggle";
 import CursorTrail from "./ui/CursorTrail";
 import ParticleBackground from "./ui/ParticleBackground";
+import NavigationSidebar from "./ui/NavigationSidebar";
 
 const Portfolio = () => {
   const [theme, setTheme] = useState<"light" | "dark">("dark");
   const [easterEggSequence, setEasterEggSequence] = useState("");
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+
+  const handleSidebarToggle = useCallback((isOpen: boolean) => {
+    setSidebarOpen(isOpen);
+  }, []);
 
   useEffect(() => {
     // Check for saved theme preference or default to dark
@@ -102,17 +108,20 @@ const Portfolio = () => {
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.5 }}
-        className="fixed top-6 right-6 z-50"
+        className="fixed top-6 left-6 z-50"
       >
         <ThemeToggle theme={theme} onToggle={toggleTheme} />
       </motion.div>
 
+      {/* Navigation Sidebar */}
+      <NavigationSidebar onToggle={handleSidebarToggle} />
+
       {/* Main Content */}
-      <main className="relative z-10">
+      <main className={`relative z-10 transition-all duration-300 ${sidebarOpen ? 'sm:ml-72 md:ml-80 lg:ml-80' : ''}`}>
         <Hero />
         <Projects />
-        <Skills />
         <Experience />
+        <Skills />
         <Contact />
       </main>
 

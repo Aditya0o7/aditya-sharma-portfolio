@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Building, Trophy, Target, Users, Calendar, Award } from "lucide-react";
+import { Building, Trophy, Target, Users, Calendar, Award, Code, Briefcase, GraduationCap } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 type ExperienceItem = {
@@ -25,19 +25,36 @@ type AchievementItem = {
 const experiences: ExperienceItem[] = [
   {
     type: "experience",
+    title: "Software Development Engineer Intern",
+    organization: "StackShifter",
+    date: "Jun 2024 - Aug 2024",
+    description:
+      "Led full-stack development initiatives, optimized backend performance, and implemented modern web technologies for enhanced user experience",
+    highlights: [
+      "Developed responsive web applications using React.js and Node.js",
+      "Optimized database queries resulting in 40% faster load times",
+      "Implemented RESTful APIs and integrated third-party services",
+      "Collaborated with cross-functional teams using Agile methodologies",
+      "Contributed to code reviews and maintained high code quality standards",
+    ],
+    icon: Briefcase,
+    color: "from-blue-500 to-indigo-600",
+  },
+  {
+    type: "experience",
     title: "Goldman Sachs Virtual Internship",
     organization: "Goldman Sachs",
     date: "Sep 2024",
     description:
-      "Simulated investment banking project with hands-on data modeling, scenario analysis, and risk assessment",
+      "Participated in investment banking simulation with focus on data modeling, scenario analysis, and risk assessment methodologies",
     highlights: [
-      "Data modeling and scenario analysis",
-      "Risk assessment methodologies",
-      "Investment banking workflows",
-      "Decision-making and interpretation",
+      "Performed financial data modeling and scenario analysis",
+      "Conducted comprehensive risk assessment studies",
+      "Analyzed investment banking workflows and processes",
+      "Developed decision-making frameworks for complex financial scenarios",
     ],
     icon: Building,
-    color: "from-blue-500 to-indigo-600",
+    color: "from-green-500 to-emerald-600",
   },
   {
     type: "experience",
@@ -45,12 +62,12 @@ const experiences: ExperienceItem[] = [
     organization: "SIH 2024",
     date: "Aug 2024",
     description:
-      "Ranked 12th out of 100+ teams, built scalable prototype in 36 hours",
+      "Achieved 12th rank out of 100+ participating teams, developed innovative prototype solution in intensive 36-hour coding competition",
     highlights: [
-      "Ranked 12th out of 100+ teams",
-      "36-hour intensive development",
-      "Scalable prototype development",
-      "Team collaboration and rapid prototyping",
+      "Ranked 12th out of 100+ teams nationwide",
+      "Built scalable prototype in 36-hour time constraint",
+      "Implemented cutting-edge technologies and frameworks",
+      "Demonstrated exceptional team collaboration and rapid prototyping skills",
     ],
     icon: Users,
     color: "from-purple-500 to-pink-500",
@@ -60,8 +77,8 @@ const experiences: ExperienceItem[] = [
 const achievements: AchievementItem[] = [
   {
     type: "achievement",
-    title: "LeetCode Rating Achievement",
-    description: "1950+ rating - Top 3.1% globally",
+    title: "LeetCode Problem Solving Excellence",
+    description: "1950+ rating - Top 3.1% globally with consistent performance",
     metric: "500+ DSA problems solved",
     icon: Target,
     color: "from-green-500 to-emerald-500",
@@ -69,10 +86,26 @@ const achievements: AchievementItem[] = [
   {
     type: "achievement",
     title: "Competitive Programming Excellence",
-    description: "Top 10 in Code-Asitis intra-college event",
+    description: "Top 10 placement in Code-Asitis intra-college programming event",
     metric: "150+ participants",
     icon: Award,
     color: "from-orange-500 to-red-500",
+  },
+  {
+    type: "achievement",
+    title: "Academic Excellence",
+    description: "Consistent academic performance with strong CGPA",
+    metric: "8.04 CGPA",
+    icon: GraduationCap,
+    color: "from-blue-500 to-cyan-500",
+  },
+  {
+    type: "achievement",
+    title: "Technical Project Leadership",
+    description: "Led multiple full-stack projects with modern tech stack",
+    metric: "10+ completed projects",
+    icon: Code,
+    color: "from-purple-500 to-violet-500",
   },
 ];
 
@@ -80,7 +113,7 @@ const Experience = () => {
   const allItems = [...experiences, ...achievements];
 
   return (
-    <section className="py-20 px-6">
+    <section id="experience" className="py-20 px-6">
       <div className="container mx-auto max-w-4xl">
         {/* Header */}
         <motion.div
@@ -91,10 +124,10 @@ const Experience = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Journey & <span className="gradient-text">Achievements</span>
+            Professional <span className="gradient-text">Experience</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Milestones that shaped my growth as a developer and problem solver
+            My journey through internships, projects, and achievements that shaped my career in software development
           </p>
         </motion.div>
 
@@ -229,10 +262,10 @@ const Experience = () => {
           className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6"
         >
           {[
-            { label: "Problems Solved", value: "500+", icon: Target },
+            { label: "DSA Problems", value: "500+", icon: Target },
             { label: "LeetCode Rating", value: "1950+", icon: Trophy },
-            { label: "Team Projects", value: "10+", icon: Users },
-            { label: "Global Rank", value: "Top 3.1%", icon: Award },
+            { label: "Projects Completed", value: "10+", icon: Code },
+            { label: "Global Percentile", value: "Top 3.1%", icon: Award },
           ].map((stat, idx) => (
             <motion.div
               key={stat.label}
